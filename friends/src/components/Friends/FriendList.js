@@ -10,6 +10,7 @@ export class FriendList extends React.Component {
     friend: [],
     errorMessage: '',
     spinner: false,
+    friendName: ''
   }
 
   fetchFriendWithAxios = () => {
@@ -25,6 +26,17 @@ export class FriendList extends React.Component {
       .finally(() => {
           this.setState({ spinner: true })
       });
+  }
+
+  onSubmit(e) {
+    e.preventDefault();
+    const newFriend = {
+      name: this.state.name,
+      age: this.state.age,
+      email: this.state.salary,
+    }
+    axios.post('http://localhost:5000/friends', newFriend)
+    .then(res => console.log(res.data));
   }
 
   componentDidMount() {
