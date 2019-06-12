@@ -33,7 +33,6 @@ export class FriendList extends React.Component {
   render() {
     return (
       <div className="App">
-        My Friends App
         {
           this.state.errorMessage && <div className='error'>{this.state.errorMessage}</div>
         }
