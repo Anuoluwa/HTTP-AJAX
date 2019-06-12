@@ -2,6 +2,7 @@ import React from 'react';
 // import './App.css';
 // import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import axios from 'axios';
+import FriendDetails from './FriendDetails';
 
 
 export class FriendList extends React.Component {
@@ -46,19 +47,5 @@ export class FriendList extends React.Component {
   }
 }
 
-function FriendDetails ({ friends }) {
-    const {name, age, email } = friends;
-    return (
-        <div>
-            <h2>{name}</h2>
-        <div className="friend-age">
-          Age: <em>{age}</em>
-        </div>
-        <div className="friend-email">
-          email: <strong>{email}</strong>
-        </div>
-        </div>
-    )
-}
 
 export default FriendList;
