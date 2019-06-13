@@ -8,7 +8,6 @@ export class NewFriend extends Component {
         email: ''
       }
 
-
       handleChange = event => {
         this.setState({ [event.target.name]: event.target.value });
         this.setState({ [event.target.age]: event.target.value });

@@ -1,6 +1,6 @@
 import React from 'react';
 
-function FriendDetails ({ friends }) {
+function FriendDetails ({ friends, deleteFriend, ...props }) {
     const {name, age, email } = friends;
     return (
         <div>
@@ -13,7 +13,8 @@ function FriendDetails ({ friends }) {
             email: <strong>{email}</strong>
           </div>
           <div>
-          <button>Remove</button> <button>Update</button>
+          <button>Remove</button> 
+          <button>Update</button>
 
           </div>
           </div>

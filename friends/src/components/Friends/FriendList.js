@@ -1,6 +1,6 @@
 import React from 'react';
 // import './App.css';
-// import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+// import { BrowserRouter as Route } from 'react-router-dom';
 import axios from 'axios';
 import FriendDetails from './FriendDetails';
 
@@ -10,14 +10,14 @@ export class FriendList extends React.Component {
     friend: [],
     errorMessage: '',
     spinner: false,
-    friendName: ''
+    friendName: '',
+    id: '',
   }
 
   fetchFriendWithAxios = () => {
     this.setState({ spinner: true })
     axios.get('http://localhost:5000/friends')
       .then(response => {
-          console.log(response);
         this.setState({ friend: response.data });
       })
       .catch(error => {
@@ -28,19 +28,38 @@ export class FriendList extends React.Component {
       });
   }
 
-  onSubmit(e) {
-    e.preventDefault();
-    const newFriend = {
-      name: this.state.name,
-      age: this.state.age,
-      email: this.state.salary,
-    }
-    axios.post('http://localhost:5000/friends', newFriend)
-    .then(res => console.log(res.data));
-  }
-
   componentDidMount() {
     this.fetchFriendWithAxios();
+  }
+
+  handleChangeDelete = event => {
+    this.setState({ id: event.target.value });
+  }
+
+  deleteFriend = (id) => {
+    // delete a friend and retrieve new data from server
+    axios.delete(
+        `http://localhost:5000/friends/${id}`
+        )
+      .then(res => {
+        this.setState({
+          friends: res.data,
+        })
+      })
+      .catch(err => console.log(err))
+  }
+
+  updateFriend = (friend, id) => {
+    axios.put(
+        `http://localhost:5000/friends/${id}`,
+        friend
+      )
+      .then(res => {
+        this.setState({
+          friends: res.data,
+        })
+      })
+      .catch(err => console.log(err))
   }
   render() {
     return (
@@ -50,7 +69,10 @@ export class FriendList extends React.Component {
         }
         <div className="friend-list">
         {this.state.friend.map(friend => (
-          <FriendDetails key={friend.id} friends={friend} />
+          <FriendDetails key={friend.id} 
+          friends={friend}
+          updateFriend={this.updateFriend}
+           />
         ))}
       </div>
       </div>
